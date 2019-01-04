@@ -25,7 +25,7 @@ class LinkController extends Controller
      */
     public function create()
     {
-        //
+        return view('links.create');
     }
 
     /**
@@ -36,7 +36,7 @@ class LinkController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->all();
     }
 
     /**
@@ -48,6 +48,7 @@ class LinkController extends Controller
     public function show(Link $link)
     {
         //
+        return view('links.show', compact('link'));
     }
 
     /**
