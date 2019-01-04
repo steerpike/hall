@@ -10,10 +10,4 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Link;
-
-Route::get('/', function () {
-    //$links = Link::withAnyMachineTags('personal:family=fionn')->get();
-    //print_r($links->pluck('title')->toArray());
-    return view('welcome');
-});
+Route::resource('links', 'LinkController');
