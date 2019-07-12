@@ -17,6 +17,7 @@ class TagController extends Controller
     public function list()
     {
         $machinetags = MachineTag::orderBy('namespace')->get();
+        
         return view('tagged.index', compact('machinetags'));
     }
 }
