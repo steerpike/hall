@@ -20,6 +20,12 @@
             <textarea name="description" id="description" cols="30" rows="10"></textarea>
         </div>
         <div>
+            <textarea name="notes" id="notes" cols="30" rows="10"></textarea>
+        </div>
+        <div>
+            <input type="text" name="machinetag" id="machinetag" placeholder="namespace:predicate=value">
+        </div>
+        <div>
             <button type="submit">Create Link</button>
         </div>
     </form>
