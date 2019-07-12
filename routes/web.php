@@ -11,3 +11,5 @@
 |
 */
 Route::resource('links', 'LinkController');
+Route::get('/tagged/{machinetag}', 'TagController@index')->name('tagged');
+Route::get('/tagged', 'TagController@list')->name('tags');

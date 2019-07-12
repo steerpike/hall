@@ -18,6 +18,7 @@ class CreateLinksTable extends Migration
             $table->text('title')->nullable();
             $table->text('url')->nullable();
             $table->text('description')->nullable();
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }
