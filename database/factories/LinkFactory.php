@@ -7,6 +7,7 @@ $factory->define(App\Link::class, function (Faker $faker) {
         //
         'url'=>$faker->url,
         'title'=>$faker->sentence($nbWords = 6, $variableNbWords = true),
-        'description'=>$faker->realText($maxNbChars = 200, $indexSize = 2)
+        'description'=>$faker->realText($maxNbChars = 200, $indexSize = 2),
+        'notes'=>$faker->realText($maxNbChars = 200, $indexSize = 2)
     ];
 });
