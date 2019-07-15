@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Link;
+use Steerpike\MachineTags\MachineTag;
+
 use Illuminate\Http\Request;
 
 class LinkController extends Controller
@@ -14,7 +16,7 @@ class LinkController extends Controller
      */
     public function index()
     {
-        $links = Link::all();
+        $links = Link::with('machinetags')->get();
         return view('links.index', compact('links'));
     }
 
@@ -36,7 +38,21 @@ class LinkController extends Controller
      */
     public function store(Request $request)
     {
-        $request->all();
+        $request->validate([
+            'title'=>'required',
+            'url'=>'required'
+        ]);
+        $link = new Link([
+            'title' => $request->get('title'),
+            'url' => $request->get('url'),
+            'description' => $request->get('description'),
+            'notes' => $request->get('notes')
+        ]);
+        $tag = $request->get('machinetag');
+        //$MachineTag = MachineTag::findOrCreate($tag);
+        $link->save();
+        $link->attachMachineTag($tag)->save();
+        return redirect('/links')->with('success', 'Link saved!');
     }
 
     /**
@@ -59,7 +75,7 @@ class LinkController extends Controller
      */
     public function edit(Link $link)
     {
-        //
+        return view('links.edit', compact('link'));
     }
 
     /**
@@ -71,7 +87,14 @@ class LinkController extends Controller
      */
     public function update(Request $request, Link $link)
     {
-        //
+        $link->title = $request->get('title');
+        $link->url = $request->get('url');
+        $link->description = $request->get('description');
+        $link->notes = $request->get('notes');
+        $tag = $request->get('machinetag');
+        $link->attachMachineTag($tag);
+        $link->save();
+        return redirect('/links')->with('success', 'Link edited!');
     }
 
     /**

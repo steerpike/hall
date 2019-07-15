@@ -1,4 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap');
+
 @tailwind base;
+html {
+  font-family: 'Libre Baskerville', serif;
+}
+
 h1 {
   @apply text-2xl;
 }
@@ -8,9 +15,30 @@ h2 {
 h3 {
   @apply text-lg;
 }
-a {
-  @apply text-blue-600 underline;
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
 }
+
+a:link {
+  @apply italic border-b border-yellow-600;
+}
+a:visited {
+  @apply border-gray-200;
+}
+a:hover {
+  @apply bg-yellow-100;
+}
+a:visited:hover {
+  @apply bg-gray-100;
+}
+a:active {
+
+}
+/*
+canvas {
+  height:60px;
+}
+*/
 
 @tailwind components;
 
