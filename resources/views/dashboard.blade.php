@@ -2,7 +2,7 @@
 @section('content')
     <header class="bg-red-100">
 
-        <h1>Hall of Bright Carvings</h1>
+        <h1 class="py-4">Hall of Bright Carvings</h1>
     </header>
     <div class="container mx-auto">
         <div class="flex">
