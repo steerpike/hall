@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Link;
-use Steerpike\MachineTags\MachineTag;
+use App\MachineTag;
 
+use Storage;
 use Illuminate\Http\Request;
 
 class LinkController extends Controller
@@ -27,7 +28,8 @@ class LinkController extends Controller
      */
     public function create()
     {
-        return view('links.create');
+        $machinetags = MachineTag::orderBy('namespace')->get();
+        return view('links.create', compact('machinetags'));
     }
 
     /**
@@ -49,9 +51,12 @@ class LinkController extends Controller
             'notes' => $request->get('notes')
         ]);
         $tag = $request->get('machinetag');
-        //$MachineTag = MachineTag::findOrCreate($tag);
+        $tags = $request->get('tags');
         $link->save();
-        $link->attachMachineTag($tag)->save();
+        $link->syncMachineTags($tags);
+        if($tag) {
+            $link->attachMachineTag($tag)->save();
+        }
         return redirect('/links')->with('success', 'Link saved!');
     }
 
@@ -75,7 +80,10 @@ class LinkController extends Controller
      */
     public function edit(Link $link)
     {
-        return view('links.edit', compact('link'));
+        $machinetags = MachineTag::orderBy('namespace')->get();
+        $checkeds = $link->machineTags->pluck('id')->toArray();
+        $ids = $machinetags->pluck('id')->toArray();
+        return view('links.edit', compact('link', 'machinetags', 'checkeds', 'ids'));
     }
 
     /**
@@ -91,8 +99,12 @@ class LinkController extends Controller
         $link->url = $request->get('url');
         $link->description = $request->get('description');
         $link->notes = $request->get('notes');
+        $tags = $request->get('machinetags');
+        $link->syncMachineTags($tags);
         $tag = $request->get('machinetag');
-        $link->attachMachineTag($tag);
+        if($tag) {
+            $link->attachMachineTag($tag);
+        }
         $link->save();
         return redirect('/links')->with('success', 'Link edited!');
     }
@@ -106,5 +118,35 @@ class LinkController extends Controller
     public function destroy(Link $link)
     {
         //
+    }
+    public function import() {
+        $json = Storage::disk('local')->get('links.json');
+        $json = json_decode($json, true);
+        foreach($json as $link) {
+            $added = $link['dateAddedLocal'];
+            $added = str_replace('/', '-', $added);
+            $date = strtotime($added);
+            $save_date = date('Y-m-d H:i:s', $date);
+
+            $item = new Link([
+                'title' => $link['title'],
+                'url' => $link['url'],
+                'description' => $link['Description'],
+                'notes' => $link['Notes'],
+                'created_at'=>$save_date
+            ]);
+            $item->save();
+            $tags = $link['Tags'];
+            $tag_collection = explode(',', $tags);
+            if(is_array($tag_collection)) {
+                foreach($tag_collection as $tag) {
+                    $item->attachMachineTag(trim($tag));
+                }
+            } else {
+                $item->attachMachineTag(trim($tags));
+            }
+            
+            $item->save();
+        }
     }
 }

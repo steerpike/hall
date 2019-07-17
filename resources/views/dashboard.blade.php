@@ -21,7 +21,7 @@
                 <h2>Machine Tags</h2>
                 <ul>
                     @foreach ($machinetags as $mtag)
-                        <li><a href="{{route('tagged', ['machinetag'=>$mtag->namespace.':'.$mtag->predicate.'='.$mtag->value])}}">{{$mtag->namespace}}:{{$mtag->predicate}}={{$mtag->value}}</a></li>
+                        <li><a href="{{route('tagged', ['machinetag'=>$mtag->namespace.':'.$mtag->predicate.'='.$mtag->value])}}">{{$mtag->label}} ({{$mtag->links_count}})</a></li>
                     @endforeach
                 </ul>
             </div>

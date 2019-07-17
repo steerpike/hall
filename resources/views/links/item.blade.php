@@ -1,4 +1,5 @@
-<a href="{{ $link->url }}">{{ $link->title }} ({{ $link->created_at->format('Y-m-d') }})</a> <a href="/links/{{ $link->id}}">Show</a>
+<div class="py-5 border-b border-gray-400">
+<a href="{{ $link->url }}">{{ $link->title }} ({{ $link->created_at->format('d-m-Y') }})</a> <a href="/links/{{ $link->id}}">Show</a>
 <div class="flex">
     <div class="px-4">
         <h3>Description</h3>
@@ -11,6 +12,7 @@
 </div>
 <ul>
     @foreach ($link->machinetags as $machinetag)
-        <li><a href="{{route('tagged', ['machinetag'=>$machinetag->namespace.':'.$machinetag->predicate.'='.$machinetag->value])}}">{{$machinetag->namespace}}:{{$machinetag->predicate}}={{$machinetag->value}}</a></li>
+        <li><a class="text-xs" href="{{route('tagged', ['machinetag'=>$machinetag->namespace.':'.$machinetag->predicate.'='.$machinetag->value])}}">{{$machinetag->namespace}}:{{$machinetag->predicate}}={{$machinetag->value}}</a></li>
     @endforeach
 </ul>
+</div>

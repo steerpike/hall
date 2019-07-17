@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Link extends Model
 {
-    use \Steerpike\MachineTags\HasMachineTags;
+    use \App\HasMachineTags;
     //
     protected $guarded = [];
 }

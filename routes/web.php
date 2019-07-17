@@ -11,6 +11,7 @@
 |
 */
 Route::resource('links', 'LinkController');
+Route::get('/import', 'LinkController@import');
 Route::get('/tagged/{machinetag}', 'TagController@index')->name('tagged');
 Route::get('/tagged', 'TagController@list')->name('tags');
 Route::get('/', 'DashboardController@index')->name('dashboard');

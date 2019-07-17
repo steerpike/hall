@@ -15,6 +15,11 @@
         <div>
             <textarea name="notes" id="notes" cols="30" rows="10"></textarea>
         </div>
+        @foreach ($machinetags as $machinetag)
+        <div>
+            <input type="checkbox" name="tags[]" value="{{$machinetag->label}}" />{{$machinetag->label}}
+        </div>
+        @endforeach
         <div>
             <input type="text" name="machinetag" id="machinetag" placeholder="namespace:predicate=value">
         </div>

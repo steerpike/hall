@@ -5,10 +5,10 @@
         @method('PATCH') 
         {{ csrf_field() }}
         <div>
-            <input type="text" name="title" id="title" placeholder="{{$link->title}}">
+            <input type="text" name="title" id="title" value="{{$link->title}}">
         </div>
         <div>
-            <input type="text" name="url" id="url" placeholder="{{$link->url}}">
+            <input type="text" name="url" id="url" value="{{$link->url}}">
         </div>
         <div>
             <textarea name="description" id="description" cols="30" rows="10">{{$link->description}}</textarea>
@@ -17,9 +17,24 @@
             <textarea name="notes" id="notes" cols="30" rows="10">{{$link->notes}}</textarea>
         </div>
         <div>
-            @foreach ($link->machinetags as $machinetag)
-            <input type="text" name="machinetag" id="machinetag" placeholder="{{$machinetag->namespace}}">            
+            @foreach ($machinetags as $machinetag)
+                <div>
+                @if(in_array($machinetag->id, $checkeds))
+                    <input type="checkbox" name="machinetags[]" id="machinetags[]" 
+                    value="{{$machinetag->label}}" checked /> 
+                    true           
+                    {{$machinetag->label}}
+                </div>
+                @else
+                    <input type="checkbox" name="machinetags[]" id="machinetags[]" 
+                    value="{{$machinetag->label}}" />      
+                    false      
+                    {{$machinetag->label}}
+                @endif
             @endforeach
+        </div>
+        <div>
+            <input type="text" name="machinetag" id="machinetag" placeholder="namespace:predicate=value">
         </div>
         <div>
             <button type="submit">Edit Link</button>

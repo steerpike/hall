@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Link;
-use Steerpike\MachineTags\MachineTag;
+use App\MachineTag;
 use App\Http\Controllers\Controller;
 
 class TagController extends Controller
@@ -16,7 +16,7 @@ class TagController extends Controller
     }
     public function list()
     {
-        $machinetags = MachineTag::orderBy('namespace')->get();
+        $machinetags = MachineTag::orderBy('namespace')->withCount('links')->get();
         
         return view('tagged.index', compact('machinetags'));
     }
