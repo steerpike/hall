@@ -1,5 +1,5 @@
 <div class="py-5 border-b border-gray-400">
-<a href="{{ $link->url }}">{{ $link->title }} ({{ $link->created_at->format('d-m-Y') }})</a> <a href="/links/{{ $link->id}}">Show</a>
+<a href="{{ $link->url }}">{{ $link->title }} ({{ $link->created_at->format('d-m-Y') }})</a>
 <div class="flex">
     <div class="px-4">
         <h3>Description</h3>

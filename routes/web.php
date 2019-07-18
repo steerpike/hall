@@ -10,8 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('links', 'LinkController');
+//Route::resource('links', 'LinkController');
 Route::get('/import', 'LinkController@import');
-Route::get('/tagged/{machinetag}', 'TagController@index')->name('tagged');
-Route::get('/tagged', 'TagController@list')->name('tags');
+//Route::get('/tagged/{machinetag}', 'TagController@index')->name('mtagged');
+//Route::get('/tagged', 'TagController@list')->name('tags');
+Route::get('/tagged/{machinetag}', 'DashboardController@list')->name('tagged');
 Route::get('/', 'DashboardController@index')->name('dashboard');

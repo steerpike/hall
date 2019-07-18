@@ -19,4 +19,13 @@ class DashboardController extends Controller
         $machinetags = MachineTag::orderBy('namespace')->withCount('links')->get();
         return view('dashboard', compact('links','machinetags'));
     }
+    public function list($machinetag)
+    {
+        $machinetags = MachineTag::orderBy('namespace')->withCount('links')->get();
+        $links = Link::withSearchString($machinetag)
+                ->with('machinetags') 
+                ->orderBy('created_at','desc') 
+                ->get();
+        return view('dashboard', compact('links','machinetags'));
+    }
 }

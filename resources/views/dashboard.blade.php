@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
-    <header class="bg-red-100">
+    <header class="bg-gray-100">
 
         <h1 class="py-4">Hall of Bright Carvings</h1>
     </header>
